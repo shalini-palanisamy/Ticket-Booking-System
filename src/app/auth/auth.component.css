@@ -1,0 +1,46 @@
+.container {
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  width: 50vb;
+  background-color: rgb(245, 229, 195);
+  height: 50vh;
+  border-radius: 5px;
+}
+.selectButton {
+  display: flex;
+}
+button {
+  width: 50%;
+  height: 5vh;
+  border: none;
+  background-color: rgb(190, 166, 113);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.admin {
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+.user {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+button:active {
+  border-bottom: 2px rgb(245, 229, 195) solid;
+}
+.renderSignIn {
+  padding-left: 5vb;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.renderSignIn a {
+  text-decoration: underline;
+  color: black;
+  cursor: pointer;
+}
+.renderSignIn a:hover {
+  color: rgb(190, 166, 113);
+}

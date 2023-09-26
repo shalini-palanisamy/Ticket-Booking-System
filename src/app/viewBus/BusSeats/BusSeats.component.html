@@ -1,0 +1,93 @@
+<div>
+  <h3>{{ BusDetails.BusName }}</h3>
+</div>
+<div>
+  <button type="submit" (click)="CheckValue()">confirm</button>
+</div>
+<div class="container">
+  <div class="content">
+    <div class="left-column-seater">
+      <!-- "Lower" seats -->
+      <div *ngFor="let value of Stucture; let i = index">
+        <div
+          *ngIf="
+            value.SeatType === 'seater' && value.SeatNo.includes('W') !== -1
+          "
+          class="seaterWindow-column"
+          #checkboxesContainer
+        >
+          <label [class.disabled-checkbox]="value.BookingStatus">
+            <input
+              type="checkbox"
+              (change)="onCheckboxChange($event, i)"
+              [disabled]="value.BookingStatus"
+            />
+            <span class="custom-checkbox"></span>
+          </label>
+          <p>{{ value.SeatNo }}--{{ value.price }}</p>
+        </div>
+        <div
+          *ngIf="
+            value.SeatType === 'seater' && value.SeatNo.includes('W') === -1
+          "
+          class="seater-column"
+        >
+          <label [class.disabled-checkbox]="value.BookingStatus">
+            <input
+              type="checkbox"
+              (change)="onCheckboxChange($event, i)"
+              [disabled]="value.BookingStatus"
+            />
+            <span class="custom-checkbox"></span>
+          </label>
+          <p>{{ value.SeatNo }}--{{ value.price }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="lower-sleeper">
+      <ng-container *ngFor="let value of Stucture; let i = index">
+        <div
+          *ngIf="value.SeatType === 'sleeper' && value.SeatPosition === 'lower'"
+          class="lowerSleeper-column"
+        >
+          <label
+            class="custom-checkbox"
+            [class.disabled-checkbox]="value.BookingStatus"
+          >
+            <input
+              [disabled]="value.BookingStatus"
+              type="checkbox"
+              class="myCheckbox"
+              (change)="onCheckboxChange($event, i)"
+            />
+            <span class="checkmark"></span>
+          </label>
+
+          <p>{{ value.SeatNo }}--{{ value.price }}</p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="right-column">
+      <ng-container *ngFor="let value of Stucture; let i = index">
+        <div
+          *ngIf="value.SeatType === 'sleeper' && value.SeatPosition === 'upper'"
+          class="upper"
+        >
+          <label
+            class="custom-checkbox"
+            [class.disabled-checkbox]="value.BookingStatus"
+          >
+            <input
+              [disabled]="value.BookingStatus"
+              type="checkbox"
+              class="myCheckbox"
+              (change)="onCheckboxChange($event, i)"
+            />
+            <span class="checkmark"></span>
+          </label>
+          <p>{{ value.SeatNo }}--{{ value.price }}</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

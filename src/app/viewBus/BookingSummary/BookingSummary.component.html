@@ -1,0 +1,33 @@
+<div class="container">
+  <div *ngFor="let value of BookingSummary" class="status">
+    <div>
+      <h3>{{ value.SeatNo }}</h3>
+    </div>
+    <div>
+      <h4>Seat Type:</h4>
+      <p>{{ value.SeatType }}</p>
+    </div>
+    <div>
+      <h4>Seat Position:</h4>
+      <p>{{ value.SeatPosition }}</p>
+    </div>
+    <div>
+      <h4>Price:</h4>
+      <p>{{ value.price }}</p>
+    </div>
+    <div>
+      <h4>Customer Name:</h4>
+      <p>{{ value.CustName }}</p>
+    </div>
+    <div>
+      <h4>Customer Age:</h4>
+      <p>{{ value.CustAge }}</p>
+    </div>
+    <div>
+      <h4>Customer Gender</h4>
+      <p>{{ value.CustGender }}</p>
+    </div>
+    <hr />
+  </div>
+  <button (click)="GoBusList()">Go To BusList</button>
+</div>
