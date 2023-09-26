@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 export class BusSelectedService {
   BusSelectedSubject: Subject<string>;
   constructor() {
-    this.BusSelectedSubject = new Subject<string>();
+    this.BusSelectedSubject = new Subject<any>();
   }
 
   dataToSend(Data) {

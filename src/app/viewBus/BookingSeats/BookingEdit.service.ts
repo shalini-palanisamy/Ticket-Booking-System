@@ -8,12 +8,17 @@ export class BookingEditSerive {
   value;
   Busno;
   UpdatedData = [];
+  seaterCount = 0;
+  sleeperCount = 0;
+  EditBus;
   constructor(private SeatService: SeatsService, private http: HttpClient) {}
   OnEditData(FormData) {
     for (let index of FormData) {
       this.SeatService.SelectedSeats.find((seat) => {
         if (seat.SeatNo === index.SeatNo) {
           this.currentId = seat.id;
+          if (seat.SeatType === 'seater') ++this.seaterCount;
+          else if (seat.SeatType === 'sleeper') ++this.sleeperCount;
           this.value = {
             BookingStatus: true,
             BusNo: seat.Busno,
@@ -42,6 +47,41 @@ export class BookingEditSerive {
         }
       });
     }
-    console.log(this.UpdatedData);
+    this.http
+      .put(
+        'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+          this.SeatService.selectedBus.id +
+          '/BookedSeats/seater.json',
+        this.seaterCount + this.SeatService.selectedBus.BookedSeats.seater
+      )
+      .subscribe((res) => {});
+    this.http
+      .put(
+        'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+          this.SeatService.selectedBus.id +
+          '/BookedSeats/sleeper.json',
+        this.sleeperCount + this.SeatService.selectedBus.BookedSeats.sleeper
+      )
+      .subscribe((res) => {});
+    this.http
+      .put(
+        'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+          this.SeatService.selectedBus.id +
+          '/AvailbleSeat/seater.json',
+        Math.abs(
+          this.SeatService.selectedBus.AvailbleSeat.seater - this.seaterCount
+        )
+      )
+      .subscribe((res) => {});
+    this.http
+      .put(
+        'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+          this.SeatService.selectedBus.id +
+          '/AvailbleSeat/sleeper.json',
+        Math.abs(
+          this.SeatService.selectedBus.AvailbleSeat.sleeper - this.sleeperCount
+        )
+      )
+      .subscribe((res) => {});
   }
 }

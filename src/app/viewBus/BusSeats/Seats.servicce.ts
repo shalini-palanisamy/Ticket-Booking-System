@@ -10,6 +10,8 @@ export class SeatsService {
   constructor(private http: HttpClient) {}
 
   OnFetchBus() {
+    console.log(this.selectedBus);
+    console.log('at serfetch');
     const number = this.selectedBus.BusNo;
     return this.http
       .get(

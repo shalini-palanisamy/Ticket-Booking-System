@@ -18,20 +18,21 @@ export class BusSeatsComponent implements OnInit, AfterContentInit {
     private seatService: SeatsService,
     private route: Router,
     private router: ActivatedRoute
-  ) {}
-  ngOnInit(): void {
+  ) {
     this.busSelectedService.BusSelectedSubject.subscribe((res) => {
       this.seatService.selectedBus = res;
     });
   }
-  ngAfterContentInit(): void {
+  ngOnInit(): void {
     this.Onfetch();
   }
+  ngAfterContentInit(): void {}
   Onfetch() {
     this.seatService.OnFetchBus().subscribe((res) => {
-      this.BusDetails = this.seatService.selectedBus;
-      this.Stucture = [];
       this.Stucture = res;
+      if (this.seatService.selectedBus) {
+        this.BusDetails = this.seatService.selectedBus;
+      }
     });
   }
   onCheckboxChange(event: any, index: number) {
