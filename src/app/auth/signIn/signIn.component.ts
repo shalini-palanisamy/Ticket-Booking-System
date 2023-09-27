@@ -38,7 +38,7 @@ export class SignInComponent implements OnInit {
     let authObs: Observable<AuthResponseData>;
 
     this.isLoading = true;
-    authObs = this.authService.login(email, password);
+    authObs = this.authService.signup(email, password);
 
     authObs.subscribe(
       (resData) => {
