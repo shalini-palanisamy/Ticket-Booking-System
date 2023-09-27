@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthResponseData, AuthService } from '../auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-signIn',
@@ -28,21 +29,31 @@ export class SignInComponent implements OnInit {
     });
   }
   Onsubmit() {
-    console.log(this.signInForm);
-    if (!this.signInForm.valid) return;
+    if (!this.signInForm.valid) {
+      return;
+    }
     const email = this.signInForm.value.email;
     const password = this.signInForm.value.password;
+
+    let authObs: Observable<AuthResponseData>;
+
     this.isLoading = true;
-    this.authService.SignUp(email, password).subscribe(
-      (res) => {
+    authObs = this.authService.login(email, password);
+
+    authObs.subscribe(
+      (resData) => {
+        console.log(resData);
         this.isLoading = false;
         this.route.navigate(['../logIn'], { relativeTo: this.router });
       },
-      (errorRes) => {
+      (errorMessage) => {
+        console.log(errorMessage);
+        this.error = errorMessage;
         this.isLoading = false;
-        this.error = errorRes.error.error.message;
       }
     );
+
+    this.signInForm.reset();
   }
   passwordFormField() {
     return (control) => {

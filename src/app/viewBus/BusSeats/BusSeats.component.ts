@@ -28,8 +28,9 @@ export class BusSeatsComponent implements OnInit {
   }
   onCheckboxChange(event: any, index: number) {
     if (event.target.checked) {
-      this.selectedItems.push(this.Stucture[index]);
-      if (this.selectedItems.length > 5) {
+      if (this.selectedItems.length < 5) {
+        this.selectedItems.push(this.Stucture[index]);
+      } else {
         alert('One Can Book only 5 seats');
       }
     } else {

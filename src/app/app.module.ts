@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
@@ -19,6 +19,8 @@ import { BookingSummaryComponent } from './viewBus/BookingSummary/BookingSummary
 import { AdminComponent } from './admin/admin.component';
 import { BusStatusComponent } from './admin/BusStatus/BusStatus.component';
 import { SeatStatusComponent } from './admin/SeatStatus/SeatStatus.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', component: HeaderComponent },
@@ -28,13 +30,29 @@ const appRoutes: Routes = [
     children: [{ path: 'logIn', component: LogInComponent }],
   },
   { path: 'signIn', component: SignInComponent },
-  { path: 'viewBus', component: ViewBusComponent },
-  { path: 'busSeats', component: BusSeatsComponent },
-  { path: 'bookingSeat', component: BookingSeatComponent },
-  { path: 'bookingStatus', component: BookingSummaryComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'busStatus', component: BusStatusComponent },
-  { path: 'seatStatus', component: SeatStatusComponent },
+  { path: 'viewBus', component: ViewBusComponent, canActivate: [AuthGuard] },
+  { path: 'busSeats', component: BusSeatsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'bookingSeat',
+    component: BookingSeatComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bookingStatus',
+    component: BookingSummaryComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  {
+    path: 'busStatus',
+    component: BusStatusComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'seatStatus',
+    component: SeatStatusComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 @NgModule({
   declarations: [
@@ -60,7 +78,13 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

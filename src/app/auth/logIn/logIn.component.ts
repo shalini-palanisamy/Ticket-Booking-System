@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthResponseData, AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-logIn',
@@ -24,21 +25,31 @@ export class LogInComponent implements OnInit {
     });
   }
   Onsubmit() {
-    console.log(this.logInForm);
-    if (!this.logInForm.valid) return;
+    if (!this.logInForm.valid) {
+      return;
+    }
     const email = this.logInForm.value.email;
     const password = this.logInForm.value.password;
+
+    let authObs: Observable<AuthResponseData>;
+
     this.isLoading = true;
-    this.authService.LogIn(email, password).subscribe(
-      (res) => {
-        console.log(res);
+    authObs = this.authService.login(email, password);
+   
+
+    authObs.subscribe(
+      resData => {
+        console.log(resData);
         this.isLoading = false;
-        this.route.navigate(['viewBus'], { relativeTo: this.router });
+        this.route.navigate(['viewBus']);
       },
-      (errorRes) => {
+      errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
         this.isLoading = false;
-        this.error = 'Invalid Email or PassWord';
       }
     );
+
+    this.logInForm.reset();
   }
 }
