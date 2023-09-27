@@ -1,5 +1,17 @@
-<div>
-  <h3>{{ BusDetails.BusName }}</h3>
+<div class="header">
+  <div>
+    <h3>{{ BusDetails.BusName }}</h3>
+  </div>
+  <div>
+    <div class="info">
+      <div class="femalecolor"></div>
+      <p>Only for female</p>
+    </div>
+    <div class="info">
+      <div class="malecolor"></div>
+      <p>Only for male</p>
+    </div>
+  </div>
 </div>
 <div>
   <button type="submit" (click)="CheckValue()">confirm</button>
@@ -13,6 +25,10 @@
           *ngIf="
             value.SeatType === 'seater' && value.SeatNo.includes('W') !== -1
           "
+          [ngClass]="{
+            female: getStyle(value, i) === 'pink',
+            male: getStyle(value, i) === 'blue'
+          }"
           class="seaterWindow-column"
           #checkboxesContainer
         >
@@ -31,6 +47,10 @@
             value.SeatType === 'seater' && value.SeatNo.includes('W') === -1
           "
           class="seater-column"
+          [ngClass]="{
+            female: getStyle(value, i) === 'pink',
+            male: getStyle(value, i) === 'blue'
+          }"
         >
           <label [class.disabled-checkbox]="value.BookingStatus">
             <input

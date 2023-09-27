@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 @Component({
   selector: 'app-authIn',
   templateUrl: './auth.component.html',
@@ -8,6 +10,7 @@ import { Component } from '@angular/core';
 export class AuthComponent {
   logInRenderUser = true;
   logInRenderAdmin = false;
+
   OnUser() {
     this.logInRenderUser = true;
     this.logInRenderAdmin = false;

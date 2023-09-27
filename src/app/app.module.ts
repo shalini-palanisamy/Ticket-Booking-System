@@ -16,6 +16,9 @@ import { SearchComponent } from './viewBus/search/search.component';
 import { BusSeatsComponent } from './viewBus/BusSeats/BusSeats.component';
 import { BookingSeatComponent } from './viewBus/BookingSeats/BookingSeat.component';
 import { BookingSummaryComponent } from './viewBus/BookingSummary/BookingSummary.component';
+import { AdminComponent } from './admin/admin.component';
+import { BusStatusComponent } from './admin/BusStatus/BusStatus.component';
+import { SeatStatusComponent } from './admin/SeatStatus/SeatStatus.component';
 
 const appRoutes: Routes = [
   { path: '', component: HeaderComponent },
@@ -28,7 +31,10 @@ const appRoutes: Routes = [
   { path: 'viewBus', component: ViewBusComponent },
   { path: 'busSeats', component: BusSeatsComponent },
   { path: 'bookingSeat', component: BookingSeatComponent },
-  { path: 'bookingStatus', component: BookingSummaryComponent}
+  { path: 'bookingStatus', component: BookingSummaryComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'busStatus', component: BusStatusComponent },
+  { path: 'seatStatus', component: SeatStatusComponent },
 ];
 @NgModule({
   declarations: [
@@ -42,7 +48,10 @@ const appRoutes: Routes = [
     SearchComponent,
     BusSeatsComponent,
     BookingSeatComponent,
-    BookingSummaryComponent
+    BookingSummaryComponent,
+    AdminComponent,
+    BusStatusComponent,
+    SeatStatusComponent,
   ],
   imports: [
     FontAwesomeModule,

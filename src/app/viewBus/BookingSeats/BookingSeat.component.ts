@@ -21,6 +21,7 @@ export class BookingSeatComponent implements OnInit {
   selectedBus;
   seatForms: FormGroup[] = [];
   totalPrice = 0;
+  ShowError = false;
   constructor(
     private seatSerives: SeatsService,
     private fb: FormBuilder,
@@ -41,8 +42,21 @@ export class BookingSeatComponent implements OnInit {
     this.selectedSeats.forEach((seat, index) => {
       const seatForm = this.fb.group({
         SeatNo: [seat.SeatNo],
-        name: ['', Validators.required],
-        age: ['', Validators.required],
+        name: [
+          '',
+          [
+            Validators.required, // Required validation
+            Validators.minLength(3), // Minimum length of 3 characters
+            this.customNameValidator(), // Custom name validation function
+          ],
+        ],
+        age: [
+          '',
+          [
+            Validators.required, // Required validation
+            Validators.min(5), // Minimum age of 5
+          ],
+        ],
         gender: ['', Validators.required],
       });
 
@@ -51,6 +65,18 @@ export class BookingSeatComponent implements OnInit {
       this.seatForms.push(seatForm);
     });
   }
+  customNameValidator() {
+    return (control: FormControl): { [key: string]: any } | null => {
+      const namePattern = /^[a-zA-Z\s]*$/; // Regex pattern to allow only letters and spaces
+      const value = control.value;
+
+      if (!namePattern.test(value)) {
+        return { invalidName: true }; // Validation failed
+      }
+
+      return null; // Validation passed
+    };
+  }
   OnShow() {
     if (this.SubmitBooking.valid) {
       // Access the form values for each seat
@@ -58,6 +84,8 @@ export class BookingSeatComponent implements OnInit {
       this.BookingService.OnEditData(seatDataArray);
       alert('Your tickets has been booked...');
       this.route.navigate(['../bookingStatus'], { relativeTo: this.router });
+    } else {
+      this.ShowError = true;
     }
   }
 }

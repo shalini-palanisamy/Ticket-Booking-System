@@ -17,7 +17,7 @@ export class BookingSummaryComponent implements OnInit {
     this.BookingSummary = this.Bookingserive.UpdatedData;
     console.log(this.BookingSummary);
   }
-  GoBusList() {
-    this.route.navigate(['../viewBus']);
+  LogOut() {
+    this.route.navigate(['../']);
   }
 }

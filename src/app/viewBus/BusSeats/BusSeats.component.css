@@ -31,6 +31,40 @@ input[type="checkbox"]:checked + .custom-checkbox::before {
 input[type="checkbox"] {
   display: none;
 }
+.female {
+  border: 3px solid pink;
+  width: 55px; /* Set the width and height as per your image size */
+  height: 55px;
+  border-radius: 4px;
+}
+.male {
+  border: 3px solid rgb(174, 174, 238);
+  width: 55px; /* Set the width and height as per your image size */
+  height: 55px;
+  border-radius: 4px;
+}
+.femalecolor {
+  border: 3px solid pink;
+  width: 20px;
+  height: 20px;
+}
+.malecolor {
+  border: 3px solid rgb(174, 174, 238);
+  width: 20px;
+  height: 20px;
+}
+.info {
+  display: flex;
+  gap: 10px;
+  width: 200px;
+}
+.info p {
+  font-size: larger;
+  font-weight: bolder;
+}
+h3 {
+  font-weight: bolder;
+}
 
 /* Styling for the custom checkbox */
 .custom-checkbox {

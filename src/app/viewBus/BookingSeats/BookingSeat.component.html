@@ -59,4 +59,9 @@
     </div>
     <button type="submit">Confirm Booking</button>
   </form>
+  <div class="error" *ngIf="ShowError">
+    Your input doesn't satisfied the validations that name should contain
+    minimum of 3 characters and not allow numbers and special characters or
+    Minimum age should be 5
+  </div>
 </div>

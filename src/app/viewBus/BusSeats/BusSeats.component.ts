@@ -1,5 +1,4 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { BusSelectedService } from '../BusSelected.service';
+import { Component, OnInit } from '@angular/core';
 import { SeatsService } from './Seats.servicce';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,31 +7,23 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './BusSeats.component.html',
   styleUrls: ['./BusSeats.component.css'],
 })
-export class BusSeatsComponent implements OnInit, AfterContentInit {
+export class BusSeatsComponent implements OnInit {
   Stucture;
   BusDetails;
-
   selectedItems: any[] = [];
   constructor(
-    private busSelectedService: BusSelectedService,
     private seatService: SeatsService,
     private route: Router,
     private router: ActivatedRoute
-  ) {
-    this.busSelectedService.BusSelectedSubject.subscribe((res) => {
-      this.seatService.selectedBus = res;
-    });
-  }
+  ) {}
   ngOnInit(): void {
     this.Onfetch();
   }
-  ngAfterContentInit(): void {}
   Onfetch() {
     this.seatService.OnFetchBus().subscribe((res) => {
       this.Stucture = res;
-      if (this.seatService.selectedBus) {
-        this.BusDetails = this.seatService.selectedBus;
-      }
+      console.log(this.Stucture);
+      this.BusDetails = this.seatService.selectedBus;
     });
   }
   onCheckboxChange(event: any, index: number) {
@@ -47,6 +38,38 @@ export class BusSeatsComponent implements OnInit, AfterContentInit {
         this.selectedItems.splice(selectedIndex, 1);
       }
     }
+  }
+  getStyle(item: any, index: number) {
+    let style: string = '';
+
+    if (item.BookingStatus === false) {
+      if (item.SeatNo.includes('W')) {
+        if (
+          this.Stucture[index + 1].BookingStatus &&
+          this.Stucture[index + 1].CustGender === 'female'
+        ) {
+          style = 'pink';
+        } else if (
+          this.Stucture[index + 1].BookingStatus &&
+          this.Stucture[index + 1].CustGender === 'male'
+        ) {
+          style = 'blue';
+        }
+      } else {
+        if (
+          this.Stucture[index - 1]?.BookingStatus &&
+          this.Stucture[index - 1]?.CustGender === 'female'
+        ) {
+          style = 'pink';
+        } else if (
+          this.Stucture[index - 1]?.BookingStatus &&
+          this.Stucture[index - 1]?.CustGender === 'male'
+        ) {
+          style = 'blue';
+        }
+      }
+    }
+    return style;
   }
   CheckValue() {
     this.seatService.SelectedSeats = [...this.selectedItems];
