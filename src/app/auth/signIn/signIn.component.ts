@@ -44,7 +44,7 @@ export class SignInComponent implements OnInit {
       (resData) => {
         console.log(resData);
         this.isLoading = false;
-        this.route.navigate(['../logIn'], { relativeTo: this.router });
+        this.route.navigate(['logIn']);
       },
       (errorMessage) => {
         console.log(errorMessage);
