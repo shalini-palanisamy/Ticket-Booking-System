@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
-import { BusSelectedService } from './BusSelected.service';
+import { SeatsService } from './BusSeats/Seats.servicce';
 
 @Component({
   selector: 'app-viewBus',
@@ -17,7 +17,7 @@ export class ViewBusComponent implements OnInit {
     private http: HttpClient,
     private route: Router,
     private router: ActivatedRoute,
-    private busSelectedService: BusSelectedService
+    private busSelectedService: SeatsService
   ) {}
   ngOnInit() {
     this.http
@@ -55,7 +55,8 @@ export class ViewBusComponent implements OnInit {
     }
   }
   OnShowItem(busValue) {
-    this.busSelectedService.dataToSend(busValue);
+    this.busSelectedService.selectedBus = busValue;
+    console.log(this.busSelectedService.selectedBus);
     this.route.navigate(['../busSeats'], { relativeTo: this.router });
   }
 }
