@@ -6,7 +6,9 @@
   height: auto;
   border-radius: 10px;
 }
-
+.tick {
+  margin-left: 100px;
+}
 h4 {
   font-weight: bold;
 }

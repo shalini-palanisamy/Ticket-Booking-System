@@ -24,6 +24,7 @@ export class SeatStatusComponent implements OnInit {
   }
   OnCancel(data) {
     this.SeatView.cancellation(data);
+    console.log(data);
     alert('The Seat ' + data.SeatNo + "'s booking has been cancelled.");
   }
 }

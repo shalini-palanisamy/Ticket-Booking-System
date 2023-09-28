@@ -21,6 +21,7 @@ import { BusStatusComponent } from './admin/BusStatus/BusStatus.component';
 import { SeatStatusComponent } from './admin/SeatStatus/SeatStatus.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthGuard } from './auth/auth.guard';
+import { ConfirmBookingComponent } from './viewBus/ConfirmBooking/ConfirmBooking.component';
 
 const appRoutes: Routes = [
   { path: '', component: HeaderComponent },
@@ -53,6 +54,11 @@ const appRoutes: Routes = [
     component: SeatStatusComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'confirmBooking',
+    component: ConfirmBookingComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 @NgModule({
   declarations: [
@@ -70,6 +76,7 @@ const appRoutes: Routes = [
     AdminComponent,
     BusStatusComponent,
     SeatStatusComponent,
+    ConfirmBookingComponent,
   ],
   imports: [
     FontAwesomeModule,

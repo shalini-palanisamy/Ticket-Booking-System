@@ -11,6 +11,9 @@ export class BusSeatsComponent implements OnInit {
   Stucture;
   BusDetails;
   selectedItems: any[] = [];
+  TotalSeats = 0;
+  seater = 0;
+  sleeper = 0;
   constructor(
     private seatService: SeatsService,
     private route: Router,
@@ -29,6 +32,9 @@ export class BusSeatsComponent implements OnInit {
   onCheckboxChange(event: any, index: number) {
     if (event.target.checked) {
       if (this.selectedItems.length < 5) {
+        if (this.Stucture[index].SeatType === 'seater') ++this.seater;
+        else ++this.sleeper;
+        ++this.TotalSeats;
         this.selectedItems.push(this.Stucture[index]);
       } else {
         alert('One Can Book only 5 seats');
@@ -36,6 +42,9 @@ export class BusSeatsComponent implements OnInit {
     } else {
       const selectedIndex = this.selectedItems.indexOf(this.Stucture[index]);
       if (selectedIndex !== -1) {
+        if (this.Stucture[index].SeatType === 'seater') --this.seater;
+        else --this.sleeper;
+        --this.TotalSeats;
         this.selectedItems.splice(selectedIndex, 1);
       }
     }

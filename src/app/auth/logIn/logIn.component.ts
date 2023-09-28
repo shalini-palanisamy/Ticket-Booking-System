@@ -34,22 +34,25 @@ export class LogInComponent implements OnInit {
     let authObs: Observable<AuthResponseData>;
 
     this.isLoading = true;
-    authObs = this.authService.login(email, password);
-   
+    if (email !== 'idpuser@gmail.com' && password !== 'IdpIndia@68') {
+      authObs = this.authService.login(email, password);
 
-    authObs.subscribe(
-      resData => {
-        console.log(resData);
-        this.isLoading = false;
-        this.route.navigate(['viewBus']);
-      },
-      errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
-        this.isLoading = false;
-      }
-    );
-
+      authObs.subscribe(
+        (resData) => {
+          console.log(resData);
+          this.isLoading = false;
+          this.route.navigate(['viewBus']);
+        },
+        (errorMessage) => {
+          console.log(errorMessage);
+          this.error = errorMessage;
+          this.isLoading = false;
+        }
+      );
+    } else {
+      this.error = 'Invalid User';
+      this.isLoading = false;
+    }
     this.logInForm.reset();
   }
 }

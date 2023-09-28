@@ -30,6 +30,43 @@ export class SeatFetchService {
   }
   cancellation(data) {
     console.log(data);
+    if (data.SeatType === 'seater') {
+      this.http
+        .put(
+          'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+            this.BusSelected.SelectedBus.id +
+            '/BookedSeats/seater.json',
+          Math.abs(this.BusSelected.SelectedBus.BookedSeats.seater - 1)
+        )
+        .subscribe((res) => {});
+      this.http
+        .put(
+          'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+            this.BusSelected.SelectedBus.id +
+            '/AvailbleSeat/seater.json',
+          this.BusSelected.SelectedBus.AvailbleSeat.seater + 1
+        )
+        .subscribe((res) => {});
+    } else {
+      this.http
+        .put(
+          'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+            this.BusSelected.SelectedBus.id +
+            '/BookedSeats/sleeper.json',
+          Math.abs(this.BusSelected.SelectedBus.BookedSeats.sleeper - 1)
+        )
+        .subscribe((res) => {});
+
+      this.http
+        .put(
+          'https://ebusticketbooking-default-rtdb.firebaseio.com/Buses/' +
+            this.BusSelected.SelectedBus.id +
+            '/AvailbleSeat/sleeper.json',
+          this.BusSelected.SelectedBus.AvailbleSeat.sleeper + 1
+        )
+        .subscribe((res) => {});
+    }
+
     this.http
       .put(
         'https://ebusticketbooking-default-rtdb.firebaseio.com/BusNo' +

@@ -35,20 +35,22 @@ export class AdminComponent {
     const password = this.logInForm.value.password;
 
     let authObs: Observable<AuthResponseData>;
+    if (email === 'idpuser@gmail.com' && password === 'IdpIndia@68') {
+      authObs = this.authService.login(email, password);
 
-    authObs = this.authService.login(email, password);
+      authObs.subscribe(
+        (resData) => {
+          console.log(resData);
 
-    authObs.subscribe(
-      (resData) => {
-        console.log(resData);
-
-        this.route.navigate(['busStatus']);
-      },
-      (errorMessage) => {
-        console.log(errorMessage);
-      }
-    );
-
+          this.route.navigate(['busStatus']);
+        },
+        (errorMessage) => {
+          console.log(errorMessage);
+        }
+      );
+    } else {
+      alert('Invalid User');
+    }
     this.logInForm.reset();
     // this.http
     //   .get(

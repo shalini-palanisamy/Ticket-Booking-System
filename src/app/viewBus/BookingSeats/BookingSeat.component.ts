@@ -81,11 +81,9 @@ export class BookingSeatComponent implements OnInit {
     if (this.SubmitBooking.valid) {
       // Access the form values for each seat
       const seatDataArray = this.seatForms.map((seatForm) => seatForm.value);
-      this.BookingService.OnEditData(seatDataArray);
-      alert('Your tickets has been booked...');
-      this.route.navigate(['../bookingStatus'], { relativeTo: this.router });
-    } else {
-      this.ShowError = true;
+      this.BookingService.FormData = seatDataArray;
+      this.BookingService.TotalAmount = this.totalPrice;
+      this.route.navigate(['../confirmBooking'], { relativeTo: this.router });
     }
   }
 }

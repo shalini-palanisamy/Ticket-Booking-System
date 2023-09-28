@@ -1,6 +1,7 @@
 .container {
   padding: 5vb;
   padding-bottom: 0%;
+  width: 500px;
 }
 .form-group label {
   display: block;
@@ -18,8 +19,8 @@
   border: 2px solid rgb(190, 166, 113);
 }
 button {
-  width: 15vb;
-  height: 4vh;
+  width: 8vw;
+  height: 5vh;
   border-radius: 5px;
   background-color: rgb(190, 166, 113);
   color: white;

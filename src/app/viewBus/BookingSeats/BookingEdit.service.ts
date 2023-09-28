@@ -4,6 +4,8 @@ import { SeatsService } from '../BusSeats/Seats.servicce';
 
 @Injectable({ providedIn: 'root' })
 export class BookingEditSerive {
+  FormData;
+  TotalAmount;
   currentId;
   value;
   Busno;
@@ -12,8 +14,8 @@ export class BookingEditSerive {
   sleeperCount = 0;
   EditBus;
   constructor(private SeatService: SeatsService, private http: HttpClient) {}
-  OnEditData(FormData) {
-    for (let index of FormData) {
+  OnEditData() {
+    for (let index of this.FormData) {
       this.SeatService.SelectedSeats.find((seat) => {
         if (seat.SeatNo === index.SeatNo) {
           this.currentId = seat.id;
