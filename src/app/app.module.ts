@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './auth/signIn/signIn.component';
@@ -22,6 +23,9 @@ import { SeatStatusComponent } from './admin/SeatStatus/SeatStatus.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthGuard } from './auth/auth.guard';
 import { ConfirmBookingComponent } from './viewBus/ConfirmBooking/ConfirmBooking.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UpidComponent } from './my-dialog/my-dialog.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: HeaderComponent },
@@ -77,6 +81,7 @@ const appRoutes: Routes = [
     BusStatusComponent,
     SeatStatusComponent,
     ConfirmBookingComponent,
+    UpidComponent
   ],
   imports: [
     FontAwesomeModule,
@@ -84,6 +89,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    MatDialogModule,
+    FormsModule
   ],
   providers: [
     {

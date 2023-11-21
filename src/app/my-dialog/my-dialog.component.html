@@ -1,0 +1,26 @@
+<div class="classUp">
+  <h1>{{ totalAmount }}</h1>
+  <form [formGroup]="upiIdForm">
+    <input formControlName="upiId" placeholder="Enter UPI ID" />
+    <small
+      *ngIf="
+        upiIdForm.get('upiId').hasError('invalidUpiId') && upiIdForm.touched
+      "
+      class="error-message"
+    >
+      {{ upiIdForm.get("upiId").getError("message") }}
+    </small>
+    <small *ngIf="upiIdForm.get('upiId').hasError('minlength')">
+      Minimum length should be 10 characters.
+    </small>
+    <small *ngIf="upiIdForm.get('upiId').hasError('maxlength')"
+      >Maximum length should be 20 characters.</small
+    >
+    <div>
+      <button [disabled]="upiIdForm.invalid" (click)="performAction()">
+        Submit
+      </button>
+    </div>
+  </form>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

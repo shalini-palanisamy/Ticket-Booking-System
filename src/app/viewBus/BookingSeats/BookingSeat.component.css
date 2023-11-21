@@ -68,3 +68,19 @@ small {
   font-weight: bold; /* Example: make the label text bold when clicked */
   color: #007bff; /* Example: change the label text color when clicked */
 }
+
+/* styles.scss or styles.css */
+
+.my-dialog-container {
+  background-color: #ffffff; /* Set your desired background color */
+  border: 2px solid #000000; /* Set your desired border properties */
+}
+
+.my-dialog-backdrop {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Set your desired backdrop color and opacity */
+}

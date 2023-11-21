@@ -199,7 +199,7 @@ button {
   grid-column: 3 / span 2; /* Upper divided into 3 columns */
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Three columns in the right column */
-  grid-gap: 50px; /* Gap between upper rows and columns */
+  grid-gap: 30px; /* Gap between upper rows and columns */
 }
 .seatsSelected {
   display: table;

@@ -9,6 +9,8 @@ import { map } from 'rxjs';
 import { SeatsService } from '../BusSeats/Seats.servicce';
 import { BookingEditSerive } from './BookingEdit.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { UpidComponent } from 'src/app/my-dialog/my-dialog.component';
 
 @Component({
   selector: 'app-bookingSeat',
@@ -27,7 +29,8 @@ export class BookingSeatComponent implements OnInit {
     private fb: FormBuilder,
     private BookingService: BookingEditSerive,
     private route: Router,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
   ngOnInit() {
     this.selectedSeats = this.seatSerives.SelectedSeats;
@@ -83,7 +86,20 @@ export class BookingSeatComponent implements OnInit {
       const seatDataArray = this.seatForms.map((seatForm) => seatForm.value);
       this.BookingService.FormData = seatDataArray;
       this.BookingService.TotalAmount = this.totalPrice;
-      this.route.navigate(['../confirmBooking'], { relativeTo: this.router });
+      this.openDialog();
+      // this.route.navigate(['../confirmBooking'], { relativeTo: this.router });
     }
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UpidComponent, {
+      width: '300px', // Set the width as per your requirements
+      height: '300px',
+      panelClass: 'my-dialog-container',
+      backdropClass: 'my-dialog-backdrop',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }
