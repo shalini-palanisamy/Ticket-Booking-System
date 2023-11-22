@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookingEditSerive } from '../viewBus/BookingSeats/BookingEdit.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-dialog',
@@ -17,7 +18,8 @@ export class UpidComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UpidComponent>,
     private EditBooking: BookingEditSerive,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: Router
   ) {
     this.upiIdForm = this.fb.group({
       upiId: [
@@ -64,6 +66,7 @@ export class UpidComponent implements OnInit {
       // Emit the event when the form is valid and the submit button is clicked
       this.EditBooking.OnEditData;
       alert('Your tickets have been booked...');
+      this.route.navigate(['bookingStatus']);
       this.paymentConfirmed.emit(this.upiIdForm.value.upiId);
     }
   }
